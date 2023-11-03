@@ -11,7 +11,7 @@ namespace Extras9SlumpLosenord
             // Introduction and getting information on requirements
 
             Console.Write("I can help you create a strong password.\nHow many characters should it have (between 8 and 20)? ");
-            int length = int.Parse(Console.ReadLine()); // behöver fixa kontroll så det är ett tal
+            int length = int.Parse(Console.ReadLine()); 
             while (!(length >= 8 && length <= 20 ))
             {
                 Validate();
@@ -23,7 +23,7 @@ namespace Extras9SlumpLosenord
             while (bigsmall != "C" && bigsmall != "S" && bigsmall != "B")
             {
                 Validate();
-                bigsmall = Console.ReadLine();
+                bigsmall = Console.ReadLine().ToUpper();
             }
 
             Console.Write("Number? (Y/N) ");
@@ -85,14 +85,13 @@ namespace Extras9SlumpLosenord
             // generate the password
             // random character from all chosen categories until the length is achieved
             // three passwords are generated to choose among
-            // if any of these doesnt consist of at least one of the chosen categories, it loops until it has all of them
+            // if a password doesnt consist of at least character of each chosen category, it makes another try
 
-            // this loop will go 3 times to have 3 possible passwords
-            // loop until charSmall, charCapital, charNumbers and charSpecial are true (all required types of characters are represented)
             int nr;
             string password = "";
             string choice = "Three alternatives for your password: ";
 
+            // loop three times to generate three possible passwords
             for (int i=0; i < 3; i++) 
             {
                 // reset of which categories are needed
@@ -100,10 +99,13 @@ namespace Extras9SlumpLosenord
                 if (bigsmall == "C" || bigsmall == "B") charCapital = false;
                 if (numbers == "Y") charNumbers = false;
                 if (special == "Y") charSpecial = false;
-                
+
+                // loop until charSmall, charCapital, charNumbers and charSpecial are true (all required types of characters are represented)
                 while (!(charSmall && charCapital && charNumbers && charSpecial)) 
                 {
                     password = "";
+
+                    // inner loop to create the password itself
                     for (int j = 0; j < length; j++)
                     {
                         // random character from the list
@@ -133,9 +135,11 @@ namespace Extras9SlumpLosenord
             // Presentation of the passwords
             Console.WriteLine($"{choice}");
 
-            // if I wrote it again:
+            // if I work more on that some day:
             // create bools to mark with categories are used (instead of checking the conditions each time)
             // use these bools for separate bools in the loops, these would only be used to control if passwords consists of them
+            // fix control so that the first input from a user is an integer
+            // make more sense of Validate-method
 
         }
         static void Validate()
